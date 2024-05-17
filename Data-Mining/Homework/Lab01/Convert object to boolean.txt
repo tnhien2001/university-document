@@ -1,0 +1,3 @@
+#Convert data["Churn"] from object to boolean
+# data['Churn'] = data['Churn'].map({'Yes': True, 'No': False})
+# data["Churn"]
