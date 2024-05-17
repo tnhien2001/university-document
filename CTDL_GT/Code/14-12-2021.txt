@@ -1,0 +1,14 @@
+CHUONG 8: STACK
+
+*Stack:
+push trong stack = insert trong C.
+pop trong stack =  del, remove trong C.
+pop gia tri cuoi cung cua mang thi gia tri top = -1.
+
+
+*Queue:
+head = 0, tail = -1
+head > tail= empty 
+push tail++
+get head++
+

@@ -1,0 +1,27 @@
+**Chen
+Chen vi tri bat ky (voi mang co n phan tu):
+*n - i + 1
++ Doi` n buoc gan
++ 1 buoc gan
+
+Chen vi tri dau (voi mang co n phan tu):
+*n+1
++ Doi n buoc gan
++ 1 buoc gan
+
+*Chen vi tri cuoi (voi mang co n phan tu):
+*n
++ 1 buoc gan
+
+**Xoa
+*Xoa vi tri bat ky (voi mang co n phan tu):
++ n - i - 1 buoc
+
+**Tim
+*Tim vi tri cua phan tu bat ky (voi mang co n phan tu):
++ (n + 1)/ 2
+
+**Chen va tim
+*Ktra va Chen vao cuoi:
++ 2n + 1
+

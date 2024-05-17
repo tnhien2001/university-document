@@ -1,0 +1,5 @@
+*Chen mang thuong:
+steps = n - index + 1 ~ n/2 + 1;
+
+*Chen mang thu tu:
+steps = (gap doi mang thuong);

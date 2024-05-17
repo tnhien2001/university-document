@@ -1,0 +1,56 @@
+O(N^2/2) => O(N^2)
+O(2N), O(100N), O(N/2) => O(N)
+
+----------------------------------------------
+
+*bubbleSort:
+- Comps = [N(N-1)]/2
+    + max: [N(N-1)/2] + [N(N-1)/2] = N(N-1)
+
+-Swaps = [N(N-1)/2]
+    + max: [(N+2)(N-1)]/2
+
+----------------------------------------------
+
+*selectionSort:
+- Toi da 1 lan swaps moi~ round.
+- Comps = O(N^2). (comps la cap so cong).
+- Swaps = O(N). (swaps la n-1 "*ca qua trinh", va 
+  toi da la 1 lan swaps "*moi Round).
+
+
+----------------------------------------------
+
+*How would you describe in Big O Notation:
+1. An algorithm that takes 2N steps?
+- O(N)
+
+2. An algorithm that takes log(N / 2) steps?
+- O(log(N))
+
+3. An algorithm that always takes 2,532 steps?
+- O(1)
+
+-----------------------------------------------
+
+*insertSort: Tra cuu tu dang sau ra truoc.
+
+Khi thuc hien 1 vong neu so phia truoc ben hon thi:
+- 1 comps, 0 shift. (Do vua so vua shift).
+
+**Trong truong hop xau nhat:
+*SL comps va swaps:
+ + Khi co n phan tu:
+ -> Maximum = 1+2+3+...+n-1 comps
+ -> N(N-1)/2 
+ 
+ + Very bad:
+ -> swaps = 3 assigns
+ -> shift = 1 assigns
+ 
+-> N^2 comparisons & shifts combined
+-> N - 1 removals
+-> + N - 1 insertions
+
+
+ 

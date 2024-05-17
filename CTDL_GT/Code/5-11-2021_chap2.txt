@@ -1,0 +1,13 @@
+Chuong 2:
+Ex2: Them 7 vao mang [2, 4, 6, 8, 10, 12]
+=> Gom 8 buoc, 4 phep so sanh, 4 phep gan.
+
+Ex3: How many steps would it take to insert for the number 8 in the ordered array: 
+[2, 4, 6, 8, 10, 12]
+=> Gom 8 buoc, 4 phep so sanh, 4 phep gan.
+
+Binary Search:
+- buoc 1: chon toi 50.
+- buoc 2 chon toi 25
+- buoc 3, 4, 5, 6, 7, 8: chon toi 26, 27, 28, 29, 30.
+

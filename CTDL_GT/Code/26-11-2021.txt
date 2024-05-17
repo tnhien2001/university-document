@@ -1,0 +1,26 @@
+*bubbleSort:
+- Worst case:
++ Comps: [N(N-1)]/2
++ Swaps: [N(N-1)]/2
+
+- Best case:
++ Comps: [N(N-1)]/2 or (N-1)
++ Swaps = 0
+
+*selectionSort:
+- Worst case:
++ Comps: [N(N-1)]/2
++ Swaps: (N-1)
+
+- Best case:
++ Comps: [N(N-1)]/2
++ Swaps: (N-1) or 0
+
+*Insertion:
+- Worst case:
++ Comps: [N(N-1)]/2
++ Swaps: [N(N-1)]/2
+
+- Best case:
++ Comps: (N-1)
++ Swaps = 0
