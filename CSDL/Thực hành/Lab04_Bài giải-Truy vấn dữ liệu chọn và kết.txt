@@ -1,0 +1,41 @@
+use CsdlDonDatHang;
+
+-- Cau 1 - Lab 4
+select MaMH, TenMH, MaNCC
+from MATHANG
+where DonGia > 20 and TinhTrang = 1;
+
+-- Cau 2 - Lab 4
+select *
+from DONDATHANG
+where NgayDatHang between '07-01-2012' and '07-31-2012';
+
+select *
+from DONDATHANG
+where month(NgayDatHang) = 7 and year(NgayDatHang) = 2012;
+
+-- Cau 3 - Lab 4
+select MaKH, HoTen, SoDT
+from KHACHHANG
+where HoTen like '% L%';
+
+select MaKH, HoTen, SoDT
+from KHACHHANG
+where patindex('% L%',HoTen) > 0;
+
+-- Cau 4 - Lab 4
+select NCC.TenNCC, MH.*
+from NHACUNGCAP as NCC, MATHANG as MH
+where (NCC.MaNCC = MH.MaNCC) and (NCC.QuocGia = 'Germany');
+
+-- Cau 5 - Lab 4
+select CTDDH.*
+from CHITIETDDH as CTDDH, DONDATHANG as DDH, KHACHHANG as KH
+where (CTDDH.MaDDH = DDH.MaDDH and DDH.MaKH = KH.MaKH) and
+      (KH.HoTen = 'Mario Pontes');
+
+-- Cau 6 - Lab 4
+select DDH.MaDDH, DDH.NgayDatHang, KH.HoTen
+from KHACHHANG as KH, DONDATHANG as DDH, CHITIETDDH as CTDDH, MATHANG as MH
+where (KH.MaKH = DDH.MaKH and DDH.MaDDH = CTDDH.MaDDH and CTDDH.MaMH = MH.MaMH) and
+      (MH.TenMH ='Manjimup Dried Apples');

@@ -1,0 +1,202 @@
+use CsdlCongty;
+
+-- Truy van 18
+select NV.HoNV, NV.Dem, NV.TenNV, NV.MaPB, TG.MaDA
+from NHANVIEN as NV, THAMGIA as TG
+where NV.MaNV = TG.MaNV
+order by NV.MaPB, NV.TenNV, NV.HoNV;
+
+select NV.HoNV, NV.Dem, NV.TenNV, NV.MaPB, TG.MaDA
+from (NHANVIEN as NV join THAMGIA as TG on NV.MaNV = TG.MaNV)
+order by NV.MaPB, NV.TenNV, NV.HoNV;
+
+-- Truy van 19
+select count(*) as 'So nhan vien',	max(NV.Luong) as 'Luong cao nhat', min(NV.Luong) as 'Luong thap nhat', avg(NV.Luong) as 'Luong trung binh'
+from NHANVIEN as NV, PHONGBAN as PB
+where NV.MaPB = PB.MaPB;
+
+select count(*) as 'So nhan vien',	max(NV.Luong) as 'Luong cao nhat', min(NV.Luong) as 'Luong thap nhat', avg(NV.Luong) as 'Luong trung binh'
+from (NHANVIEN as NV join PHONGBAN as PB on NV.MaPB = PB.MaPB);
+
+-- Truy van 20
+select MaPB, count(*) as 'So nhan vien'
+from NHANVIEN
+group by MaPB;
+
+-- Truy van 21
+select MaPB, avg(Luong) as 'Luong trung binh'
+from NHANVIEN
+group by MaPB;
+
+-- Truy van 22
+select DA.MaDA, DA.TenDA, count(*) as 'So nhan vien tham gia'
+from DUAN as DA, THAMGIA as TG
+where DA.MaDA = TG.MaDA
+group by DA.MaDA, DA.TenDA;
+
+select DA.MaDA, DA.TenDA, count(*) as 'So nhan vien tham gia'
+from (DUAN as DA join THAMGIA as TG on  DA.MaDA = TG.MaDA)
+group by DA.MaDA, DA.TenDA;
+
+-- Truy van 23
+select DA.MaDA, DA.TenDA, count(*) as 'So nhan vien tham gia'
+from DUAN as DA, THAMGIA as TG
+where DA.MaDA = TG.MaDA
+group by DA.MaDA, DA.TenDA
+having count(*) > 2;
+
+select DA.MaDA, DA.TenDA, count(*) as 'So nhan vien tham gia'
+from (DUAN as DA join THAMGIA as TG on DA.MaDA = TG.MaDA)
+group by DA.MaDA, DA.TenDA
+having count(*) > 2;
+
+-- Truy van 24
+select PB.MaPB, PB.TenPB, count(MaNV) as 'So nhan vien'
+from PHONGBAN as PB, NHANVIEN as NV
+where PB.MaPB = NV.MaPB
+group by PB.MaPB, PB.TenPB
+having count(MaNV) > 5;
+
+select PB.MaPB, PB.TenPB, count(MaNV) as 'So nhan vien'
+from (PHONGBAN as PB join NHANVIEN as NV on PB.MaPB = NV.MaPB)
+group by PB.MaPB, PB.TenPB
+having count(MaNV) > 5;
+
+-- Truy van 25
+select DA.MaDA, DA.TenDA, count(TG.MaNV) as 'So nhan vien tham gia'
+from (DUAN as DA left join THAMGIA as TG on DA.MaDA = TG.MaDA)
+group by DA.MaDA, DA.TenDA;
+
+-- Truy van 26
+select DA.MaDA, DA.TenDA, count(NV.MaNV) as 'So nhan vien phong 5'
+from ((NHANVIEN as NV join THAMGIA as TG on NV.MaNV = TG.MaNV and NV.MaPB = 5) right join DUAN as DA on TG.MaDA = DA.MaDA)
+group by DA.MaDA, DA.TenDA;
+
+-- Truy van 27
+select NV.HoNV, NV.Dem, NV.TenNV, count(TN.TenTN) as 'So nguoi than'
+from (NHANVIEN as NV left join THANNHAN as TN on NV.MaNV = TN.MaNV)
+group by NV.HoNV, NV.Dem, NV.TenNV;
+
+-- Truy van 28
+select PB.TenPB, count(*) as 'So nhan vien'
+from PHONGBAN as PB, NHANVIEN as NV
+where PB.MaPB = NV.MaPB
+group by PB.TenPB
+having avg(Luong) > 30000;
+
+select PB.TenPB, count(*) as 'So nhan vien'
+from (PHONGBAN as PB join NHANVIEN as NV on PB.MaPB = NV.MaPB)
+group by PB.TenPB
+having avg(Luong) > 30000;
+
+-- Truy van 29
+select TenDA
+from DUAN
+where MaDA in (select TG.MaDA
+               from THAMGIA as TG, NHANVIEN as NV
+			   where (TG.MaNV = NV.MaNV) and (NV.HoNV like 'Nguyen%')) and
+	  MaDA in (select DA.MaDA
+	           from DUAN as DA, PHONGBAN as PB, NHANVIEN as NV
+			   where (DA.MaPB = PB.MaPB and PB.MaQL = NV.MaNV) and (NV.HoNV like 'Nguyen%'));
+
+select TenDA
+from DUAN
+where MaDA in (select TG.MaDA
+               from (THAMGIA as TG join NHANVIEN as NV on TG.MaNV = NV.MaNV)
+			   where NV.HoNV like 'Nguyen%') and
+	  MaDA in (select DA.MaDA
+	           from ((DUAN as DA join PHONGBAN as PB on DA.MaPB = PB.MaPB) join NHANVIEN as NV on PB.MaQL = NV.MaNV)
+			   where NV.HoNV like 'Nguyen%');
+
+-- Truy van 30
+select PB.TenPB, count(*) as 'So nhan vien nu'
+from PHONGBAN as PB, NHANVIEN as NV
+where (PB.MaPB = NV.MaPB) and (PB.MaPB in (select MaPB
+                                           from NHANVIEN
+										   group by MaPB
+										   having avg(Luong) > 30000) and
+							   NV.GioiTinh in ('f', 'F'))
+group by PB.TenPB;
+
+select PB.TenPB, count(*) as 'So nhan vien nu'
+from (PHONGBAN as PB join NHANVIEN as NV on PB.MaPB = NV.MaPB)
+where PB.MaPB in (select MaPB
+                  from NHANVIEN
+				  group by MaPB
+				  having avg(Luong) > 30000) and
+	  NV.GioiTinh in ('f', 'F')
+group by PB.TenPB;
+
+-- Truy van 31
+select HoNV, Dem, TenNV
+from NHANVIEN
+where MaNV in (select MaNV
+               from THANNHAN
+			   group by MaNV
+			   having count(*) > 2);
+
+select HoNV, Dem, TenNV
+from NHANVIEN as NV
+where 2 < (select count(*)
+           from THANNHAN as TN
+		   where TN.MaNV = NV.MaNV);
+
+-- Truy van 32
+select NV.HoNV, NV.Dem, NV.TenNV
+from NHANVIEN as NV
+where not exists (select *
+                  from THANNHAN as TN
+			      where TN.MaNV = NV.MaNV);
+
+-- Truy van 33
+select NV.HoNV, NV.Dem, NV.TenNV
+from PHONGBAN as PB, NHANVIEN as NV
+where (PB.MaQL = NV.MaNV) and exists (select *
+                                      from THANNHAN as TN
+									  where TN.MaNV = PB.MaQL);
+
+select NV.HoNV, NV.Dem, NV.TenNV
+from (PHONGBAN as PB join NHANVIEN as NV on PB.MaQL = NV.MaNV)
+where exists (select *
+              from THANNHAN as TN
+			  where TN.MaNV = PB.MaQL);
+
+-- Truy van 34
+select HoNV, Dem, TenNV
+from NHANVIEN 
+where Luong > (select avg(Luong)
+               from (NHANVIEN as NV join PHONGBAN as PB on NV.MaPB = PB.MaPB)
+			   where PB.TenPB = 'Nghien cuu');
+
+-- Truy van 35
+-- Su dung bang tam cho du lieu MaPB va SoNV (tong so nhan vien)
+with PB_So_NV(MaPB, SoNV) as (select MaPB, count(*)
+                              from NHANVIEN
+							  group by MaPB)
+select PB.TenPB, QL.HoNV, QL.Dem, QL.TenNV
+from (PHONGBAN as PB join NHANVIEN as QL on PB.MaQL = QL.MaNV)
+where PB.MaPB in (select MaPB
+                  from PB_So_NV
+				  where SoNV = (select max(SoNV)
+				                from PB_So_NV));
+
+-- Khong su dung bang tam
+select PB.TenPB, QL.HoNV, QL.Dem, QL.TenNV
+from (PHONGBAN as PB join NHANVIEN as QL on PB.MaQL = QL.MaNV)
+where PB.MaPB in (select MaPB
+                  from NHANVIEN
+				  group by MaPB
+				  having count(*) >= all (select count(*)
+				                          from NHANVIEN
+										  group by MaPB));
+
+-- Truy van 36
+select NV.HoNV, NV.Dem, NV.TenNV, NV.DiaChi
+from ((NHANVIEN as NV join THAMGIA as TG on NV.MaNV = TG.MaNV) join DUAN as DA on TG.MaDA = DA.MaDA)
+where DA.DiaDiem = 'Phu Nhuan' and not exists (select *
+                                               from TRUSO_PHONG as TSP
+										       where TSP.MaPB = NV.MaPB and TSP.TruSo = 'Phu Nhuan');
+
+-- Truy van 37
+
+-- Truy van 38

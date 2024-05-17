@@ -1,0 +1,47 @@
+use CsdlDonDatHang;
+
+-- Cau 1 - Lab 5
+select MH.MaMH, MH.TenMH, MH.DonGia, avg(CTDDH.DonGia) as 'Don Gia TB', sum(CTDDH.SoLuong) as 'Tong so luong'
+from ((MATHANG as MH join CHITIETDDH as CTDDH on MH.MaMH = CTDDH.MaMH) join DONDATHANG as DDH on CTDDH.MaDDH = DDH.MaDDH)
+group by MH.MaMH, MH.TenMH, MH.DonGia;
+
+-- Cau 2 - Lab 5
+select KH.*
+from KHACHHANG as KH
+where KH.MaKH in (select MaKH
+                  from DONDATHANG
+				  group by MaKH
+				  having sum(TriGia) > 3000);
+
+select KH.MaKH, KH.HoTen
+from (KHACHHANG as KH join DONDATHANG as DDH on KH.MaKH = DDH.MaKH)
+group by KH.MaKH, KH.HoTen
+having sum(DDH.TriGia) > 3000;
+
+-- Cau 3 - Lab 5
+select KH.MaKH, KH.HoTen, count(*) as 'So don dat hang'
+from (KHACHHANG as KH left join DONDATHANG as DDH on KH.MaKH = DDH.MaKH)
+group by KH.MaKH, KH.HoTen;
+
+-- Cau 4 - Lab 5
+select *
+from MATHANG
+where TinhTrang = 1 and MaMH not in (select MaMH
+									 from CHITIETDDH);
+
+-- Cau 5 - Lab 5
+select NCC.MaNCC, NCC.TenNCC
+from (NHACUNGCAP as NCC join MATHANG as MH on NCC.MaNCC = MH.MaNCC)
+group by NCC.MaNCC, NCC.TenNCC
+having count(*) >= all (select count(*)
+                        from MATHANG
+					    group by MaNCC);
+
+-- Cau 6 - Lab 5
+with KH_DDH_BRA(MaKH, HoTen, MaDDH, TriGia) 
+as (select KH.MaKH, KH.HoTen, DDH.MaDDH, DDH.TriGia
+    from (DONDATHANG as DDH join KHACHHANG as KH on DDH.MaKH = KH.MaKH)
+    where KH.QuocGia = 'Brazil')
+select MaKH, HoTen
+from KH_DDH_BRA
+where TriGia = (select max(TriGia) from KH_DDH_BRA);
