@@ -1,3 +1,0 @@
-gasoline: xăng
-pump: bơm
-sniffing: ngửi
