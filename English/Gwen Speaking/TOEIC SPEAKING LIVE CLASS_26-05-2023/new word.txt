@@ -1,0 +1,4 @@
+folding: Gấp
+package: đóng gói
+rack: giá đỡ (giá phơi đồ)
+led by: Do (ai đó thực hiện)

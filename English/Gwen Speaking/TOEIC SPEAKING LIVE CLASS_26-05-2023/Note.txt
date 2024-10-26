@@ -1,0 +1,10 @@
+Khi mô tả bức tranh chỉ cần:
++ Tập trung vào con người.
++ Tập trung vào hành động của họ.
++ Vị trí của họ. (Nếu bức tranh nhiều người).
++ Kết hợp nhiều từ chứ k phải lặp đi lặp lại
+1 từ liên tục.
++ Trang phục của họ. (Nếu ít người [<2])
+
+q4 => "On the background,
+Some tables are occupied" 
